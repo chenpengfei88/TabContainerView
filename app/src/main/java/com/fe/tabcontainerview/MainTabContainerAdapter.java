@@ -1,6 +1,5 @@
 package com.fe.tabcontainerview;
 
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import com.fe.library.adapter.BaseAdapter;
@@ -13,7 +12,7 @@ public class MainTabContainerAdapter extends BaseAdapter {
     private Fragment[] fragmentArray;
     private FragmentManager fragmentManager;
 
-    public MainTabContainerAdapter(Context context, FragmentManager fragmentManager, Fragment[] fragmentArray) {
+    public MainTabContainerAdapter(FragmentManager fragmentManager, Fragment[] fragmentArray) {
         this.fragmentManager = fragmentManager;
         this.fragmentArray = fragmentArray;
     }

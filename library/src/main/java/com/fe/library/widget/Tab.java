@@ -117,6 +117,10 @@ public class Tab {
         return index;
     }
 
+    public String getText() {
+        return text;
+    }
+
     public void setTabIsSelected(boolean isSelected) {
         if (this.isSelected == isSelected) return;
 

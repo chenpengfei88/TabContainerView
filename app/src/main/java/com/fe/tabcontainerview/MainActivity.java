@@ -3,6 +3,7 @@ package com.fe.tabcontainerview;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.fe.library.TabContainerView;
 import com.fe.library.listener.OnTabSelectedListener;
@@ -15,17 +16,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        TabContainerView tabContainerView = (TabContainerView) findViewById(R.id.container_tab);
 
-        TabContainerView tabContainer = (TabContainerView) findViewById(R.id.container_tab);
-        Fragment[] fragments = new Fragment[] {new MainFragment(), new WorkFragment(), new AppFragment(), new MineFragment()};
-        tabContainer.setAdapter(new MainTabContainerAdapter(this, getSupportFragmentManager(), fragments));
+        tabContainerView.setAdapter(new MainTabContainerAdapter(getSupportFragmentManager(),
+                new Fragment[] {new MainFragment(), new WorkFragment(), new AppFragment(), new MineFragment()}));
 
-        tabContainer.setCurrentItem(0);
-
-        tabContainer.setOnTabSelectedListener(new OnTabSelectedListener() {
+        tabContainerView.setOnTabSelectedListener(new OnTabSelectedListener() {
             @Override
             public void onTabSelected(Tab tab) {
-                System.out.println("=====MainAcitivty  onTabSelected=====" + tab.getIndex());
+                Toast.makeText(MainActivity.this, "选中-" + tab.getIndex() +"-" + tab.getText(), Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -10,7 +10,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-
 import com.fe.library.adapter.BaseAdapter;
 import com.fe.library.adapter.TabViewPagerAdapter;
 import com.fe.library.listener.OnTabSelectedListener;
@@ -39,8 +38,13 @@ public class TabContainerView extends RelativeLayout {
     private int textColor;
     private int selectedTextColor;
 
-    private OnTabSelectedListener onTabSelectedListener;
+    /**
+     *  分割线
+     */
+    private int divideLineColor;
+    private int divideLineHeight;
 
+    private OnTabSelectedListener onTabSelectedListener;
 
     public TabContainerView(Context context) {
         super(context);
@@ -76,6 +80,11 @@ public class TabContainerView extends RelativeLayout {
         textColor = typedArray.getColor(R.styleable.TabContainerViewStyle_textColor, Color.BLACK);
         selectedTextColor = typedArray.getColor(R.styleable.TabContainerViewStyle_selectedTextColor, Color.RED);
         textSize = typedArray.getDimensionPixelSize(R.styleable.TabContainerViewStyle_textSize, 14);
+
+        divideLineColor = typedArray.getColor(R.styleable.TabContainerViewStyle_divideLineColor, Color.BLACK);
+        divideLineHeight = typedArray.getInt(R.styleable.TabContainerViewStyle_divideLineHeight, 2);
+
+        typedArray.recycle();
     }
 
 
@@ -87,8 +96,8 @@ public class TabContainerView extends RelativeLayout {
     private void initDivideLine(Context context) {
         View divideLine = new View(context);
         divideLine.setId(R.id.divide_tab);
-        divideLine.setBackgroundColor(Color.CYAN);
-        LayoutParams lineLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 2);
+        divideLine.setBackgroundColor(divideLineColor);
+        LayoutParams lineLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, divideLineHeight);
         lineLp.addRule(RelativeLayout.ABOVE, R.id.linearlayout_tab);
         divideLine.setLayoutParams(lineLp);
         addView(divideLine);
@@ -109,7 +118,6 @@ public class TabContainerView extends RelativeLayout {
             @Override
             public void onPageSelected(int position) {
                 tabHost.onChangeTabHostStatus(position);
-
                 if (onTabSelectedListener != null) onTabSelectedListener.onTabSelected(tabHost.getTabForIndex(position));
             }
 
@@ -122,9 +130,14 @@ public class TabContainerView extends RelativeLayout {
     }
 
     public void setAdapter(BaseAdapter baseAdapter) {
-        tabHost.addTabs(baseAdapter, textSize, textColor, selectedTextColor);
+        setAdapter(baseAdapter, 0);
+    }
 
+    public void setAdapter(BaseAdapter baseAdapter, int index) {
+        tabHost.addTabs(baseAdapter, textSize, textColor, selectedTextColor);
         contentViewPager.setAdapter(new TabViewPagerAdapter(baseAdapter.getFragmentManager(), baseAdapter.getFragmentArray()));
+
+        setCurrentItem(index);
     }
 
     public void setCurrentItem(int index) {
