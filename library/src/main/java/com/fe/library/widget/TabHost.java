@@ -5,10 +5,8 @@ import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
 import com.fe.library.adapter.BaseAdapter;
 import com.fe.library.listener.OnTabSelectedListener;
-
 import java.util.ArrayList;
 import java.util.List;
 import fe.library.R;
@@ -45,6 +43,7 @@ public class TabHost {
     }
 
     private void addTab(Tab tab) {
+        if (tab == null) return;
         tabList.add(tab);
 
         LinearLayout tabRootView = tab.getRootView();
@@ -58,6 +57,9 @@ public class TabHost {
         String[] textArray = baseAdapter.getTextArray();
         int[] iconImageArray = baseAdapter.getIconImageArray();
         int[] selectedIconImageArray = baseAdapter.getSelectedIconImageArray();
+
+        if (count == 0 || textArray == null || iconImageArray == null || selectedIconImageArray == null) return;
+        if (textArray.length != count || iconImageArray.length != count || selectedIconImageArray.length != count) return;
 
         for (int i = 0; i < count; i++) {
             Tab tab = new Tab(context, textArray[i], textSize, textColor, selectedTextColor, iconImageArray[i], selectedIconImageArray[i], i);
@@ -94,6 +96,9 @@ public class TabHost {
     }
 
     public Tab getTabForIndex(int index) {
+        if (tabList.size() <= index) {
+            return null;
+        }
         return tabList.get(index);
     }
 

@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import com.fe.library.adapter.BaseAdapter;
 import com.fe.library.adapter.TabViewPagerAdapter;
 import com.fe.library.listener.OnTabSelectedListener;
+import com.fe.library.widget.Tab;
 import com.fe.library.widget.TabHost;
 import fe.library.R;
 
@@ -118,7 +119,8 @@ public class TabContainerView extends RelativeLayout {
             @Override
             public void onPageSelected(int position) {
                 tabHost.onChangeTabHostStatus(position);
-                if (onTabSelectedListener != null) onTabSelectedListener.onTabSelected(tabHost.getTabForIndex(position));
+                Tab selectedTab = tabHost.getTabForIndex(position);
+                if (onTabSelectedListener != null && selectedTab != null) onTabSelectedListener.onTabSelected(selectedTab);
             }
 
             @Override
@@ -134,6 +136,7 @@ public class TabContainerView extends RelativeLayout {
     }
 
     public void setAdapter(BaseAdapter baseAdapter, int index) {
+        if (baseAdapter == null) return;
         tabHost.addTabs(baseAdapter, textSize, textColor, selectedTextColor);
         contentViewPager.setAdapter(new TabViewPagerAdapter(baseAdapter.getFragmentManager(), baseAdapter.getFragmentArray()));
 

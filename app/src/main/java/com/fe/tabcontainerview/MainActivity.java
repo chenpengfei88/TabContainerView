@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
-
 import com.fe.library.TabContainerView;
 import com.fe.library.listener.OnTabSelectedListener;
 import com.fe.library.widget.Tab;
