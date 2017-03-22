@@ -1,0 +1,5 @@
+<resources>
+  <item type="id" name="linearlayout_tab"/>
+  <item type="id" name="viewpager_tab"/>
+  <item type="id" name="divide_tab"/>
+</resources>
