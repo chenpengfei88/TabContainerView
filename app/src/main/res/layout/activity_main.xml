@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.fe.library.TabContainerView
-        android:id="@+id/container_tab"
+        android:id="@+id/tab_containerview_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:textColor="#BEBEBE"

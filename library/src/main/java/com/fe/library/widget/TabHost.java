@@ -79,8 +79,7 @@ public class TabHost {
         tab.setOnTabSelectedListener(new OnTabSelectedListener() {
             @Override
             public void onTabSelected(Tab tab) {
-                onChangeTabHostStatus(tab.getIndex());
-                contentViewPager.setCurrentItem(tab.getIndex());
+                contentViewPager.setCurrentItem(tab.getIndex(), false);
             }
         });
     }

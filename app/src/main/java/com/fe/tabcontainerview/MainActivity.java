@@ -15,7 +15,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TabContainerView tabContainerView = (TabContainerView) findViewById(R.id.container_tab);
+        initView();
+    }
+
+    private void initView() {
+        TabContainerView tabContainerView = (TabContainerView) findViewById(R.id.tab_containerview_main);
 
         tabContainerView.setAdapter(new MainTabContainerAdapter(getSupportFragmentManager(),
                 new Fragment[] {new MainFragment(), new WorkFragment(), new AppFragment(), new MineFragment()}));
@@ -23,9 +27,7 @@ public class MainActivity extends AppCompatActivity {
         tabContainerView.setOnTabSelectedListener(new OnTabSelectedListener() {
             @Override
             public void onTabSelected(Tab tab) {
-                Toast.makeText(MainActivity.this, "选中-" + tab.getIndex() +"-" + tab.getText(), Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }
