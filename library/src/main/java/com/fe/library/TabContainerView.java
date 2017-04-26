@@ -145,6 +145,7 @@ public class TabContainerView extends RelativeLayout {
 
     public void setCurrentItem(int index) {
         tabHost.onChangeTabHostStatus(index);
+        contentViewPager.setCurrentItem(index);
     }
 
     public void setOnTabSelectedListener(OnTabSelectedListener onTabSelectedListener) {

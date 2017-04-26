@@ -29,5 +29,7 @@ public class MainActivity extends AppCompatActivity {
             public void onTabSelected(Tab tab) {
             }
         });
+
+        tabContainerView.setCurrentItem(1);
     }
 }
