@@ -148,6 +148,10 @@ public class TabContainerView extends RelativeLayout {
         contentViewPager.setCurrentItem(index);
     }
 
+    public void setOffscreenPageLimit(int limit) {
+        contentViewPager.setOffscreenPageLimit(limit);
+    }
+
     public void setOnTabSelectedListener(OnTabSelectedListener onTabSelectedListener) {
         this.onTabSelectedListener = onTabSelectedListener;
     }

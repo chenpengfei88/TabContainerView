@@ -31,5 +31,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         tabContainerView.setCurrentItem(1);
+
+        tabContainerView.setOffscreenPageLimit(2);
     }
 }
