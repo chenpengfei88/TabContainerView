@@ -28,6 +28,7 @@ Android TabContainerView 实现底部导航栏效果
         });
         
         //设置当前选中的item
+        
        tabContainerView.setCurrentItem(1);
     }
 }
