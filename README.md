@@ -18,6 +18,14 @@
    tabContainerView.setCurrentMessageItem(1);
        
    //设置当前有消息提示的item，提示小圆点，小圆点有消息数量
+   tabContainerView.setCurrentMessageItem(1, 3);
+   
+   //tab切换监听
+   tabContainerView.setOnTabSelectedListener(new OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(Tab tab) {
+        }
+   });
  ```
 #### 资源属性
  ```
