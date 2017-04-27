@@ -6,7 +6,7 @@
 #### 如何使用
  ```
   Fragment[] fragments = new Fragment[] {new MainFragment(), new WorkFragment(), new AppFragment(), new MineFragment()};
-  tabContainerView = (TabContainerView) findViewById(R.id.tab_containerview_main);
+  TabContainerView tabContainerView = (TabContainerView) findViewById(R.id.tab_containerview_main);
   tabContainerView.setAdapter(new MainTabContainerAdapter(getSupportFragmentManager(), fragments));
  ```
         
