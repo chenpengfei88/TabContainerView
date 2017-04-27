@@ -9,8 +9,6 @@
         android:id="@+id/tab_containerview_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:textColor="#BEBEBE"
-        app:selectedTextColor="@color/colorPrimary"
         app:divideLineColor="#DBDBDB"
         app:divideLineHeight="2"/>
 

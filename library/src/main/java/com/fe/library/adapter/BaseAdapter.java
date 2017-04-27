@@ -3,36 +3,43 @@ package com.fe.library.adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import com.fe.library.widget.AbsTab;
+
 /**
  * Created by chenpengfei on 2017/3/22.
  */
 public abstract class BaseAdapter {
 
+    private Fragment[] mFragmentArray;
+    private FragmentManager mFragmentManager;
+
+    public BaseAdapter(Fragment[] fragments, FragmentManager fragmentManager) {
+        mFragmentArray = fragments;
+        mFragmentManager = fragmentManager;
+    }
+
     /**
      *  tab数量
      */
-    public abstract int getCount();
-
-    /**
-     * tab text 数组
-     */
-    public abstract String[] getTextArray();
-
-    /**
-     * tab icon 数组
-     */
-    public abstract int[] getIconImageArray();
-
-    /**
-     * tab icon 选中 数组
-     */
-    public abstract int[] getSelectedIconImageArray();
+    public int getCount() {
+        return mFragmentArray != null ? mFragmentArray.length : 0;
+    }
 
     /**
      * fragment 数组
      */
-    public abstract Fragment[] getFragmentArray();
+    public Fragment[] getFragmentArray() {
+        return mFragmentArray;
+    }
 
-    public abstract FragmentManager getFragmentManager();
+    public FragmentManager getFragmentManager() {
+        return mFragmentManager;
+    }
+
+    /**
+     *  得到tab
+     * @return
+     */
+    public abstract AbsTab getTab(int index);
 
 }

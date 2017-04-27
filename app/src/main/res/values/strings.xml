@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">TabContainerView</string>
+
+    <array name="titleArray">
+        <item>主页</item>
+        <item>工作</item>
+        <item>应用</item>
+        <item>我</item>
+    </array>
 </resources>

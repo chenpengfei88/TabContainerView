@@ -2,6 +2,7 @@ package com.fe.library.widget;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -16,54 +17,61 @@ import fe.library.R;
  */
 public class TabHost {
 
-
-    private Context context;
-    /**
-     *  布局View
-     */
-    private LinearLayout rootView;
+    private Context mContext;
+    private LinearLayout mRootView;
     //tab集合
-    private List<Tab> tabList = new ArrayList<>();
+    private List<AbsTab> tabList = new ArrayList<>();
     private ViewPager contentViewPager;
 
 
     public TabHost(Context context) {
-        this.context = context;
+        this.mContext = context;
+
         initView();
     }
 
+    /**
+     *  初始化View
+     */
     private void initView() {
-        rootView = new LinearLayout(context);
-        rootView.setOrientation(LinearLayout.HORIZONTAL);
-        rootView.setId(R.id.linearlayout_tab);
+        mRootView = new LinearLayout(mContext);
+        mRootView.setOrientation(LinearLayout.HORIZONTAL);
+        mRootView.setId(R.id.linearlayout_tab);
 
         RelativeLayout.LayoutParams rootViewLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         rootViewLp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        rootView.setLayoutParams(rootViewLp);
+        mRootView.setLayoutParams(rootViewLp);
     }
 
-    private void addTab(Tab tab) {
+    private void addTab(AbsTab tab) {
         if (tab == null) return;
         tabList.add(tab);
 
-        LinearLayout tabRootView = tab.getRootView();
-        rootView.addView(tabRootView);
+        View tabRootView = tab.getTabRootView();
+        mRootView.addView(tabRootView);
 
         addTabChangeListener(tab);
     }
 
-    public void addTabs(BaseAdapter baseAdapter, int textSize, int textColor, int selectedTextColor) {
-        int count = baseAdapter.getCount();
-        String[] textArray = baseAdapter.getTextArray();
-        int[] iconImageArray = baseAdapter.getIconImageArray();
-        int[] selectedIconImageArray = baseAdapter.getSelectedIconImageArray();
+    /**
+     *  得到index位置的tab
+     * @param index
+     * @return
+     */
+    public AbsTab getTabForIndex(int index) {
+        if (tabList.size() <= index) {
+            return null;
+        }
+        return tabList.get(index);
+    }
 
-        if (count == 0 || textArray == null || iconImageArray == null || selectedIconImageArray == null) return;
-        if (textArray.length != count || iconImageArray.length != count || selectedIconImageArray.length != count) return;
+    public void addTabs(BaseAdapter baseAdapter) {
+        int count = baseAdapter.getCount();
+
+        if (count == 0) return;
 
         for (int i = 0; i < count; i++) {
-            Tab tab = new Tab(context, textArray[i], textSize, textColor, selectedTextColor, iconImageArray[i], selectedIconImageArray[i], i);
-            addTab(tab);
+            addTab(baseAdapter.getTab(i));
         }
     }
 
@@ -72,14 +80,14 @@ public class TabHost {
     }
 
     public LinearLayout getRootView() {
-        return rootView;
+        return mRootView;
     }
 
-    private void addTabChangeListener(Tab tab) {
+    private void addTabChangeListener(AbsTab tab) {
         tab.setOnTabSelectedListener(new OnTabSelectedListener() {
             @Override
-            public void onTabSelected(Tab tab) {
-                contentViewPager.setCurrentItem(tab.getIndex(), false);
+            public void onTabSelected(AbsTab tab) {
+                contentViewPager.setCurrentItem(tab.getTabIndex(), false);
             }
         });
     }
@@ -89,16 +97,11 @@ public class TabHost {
      */
     public void onChangeTabHostStatus(int index) {
         for (int i = 0, size = tabList.size(); i < size; i++) {
-            Tab tab = tabList.get(i);
-            tab.setTabIsSelected(index == i ? true : false);
+            AbsTab tab = tabList.get(i);
+            tab.tabSelected(index == i ? true : false);
         }
     }
 
-    public Tab getTabForIndex(int index) {
-        if (tabList.size() <= index) {
-            return null;
-        }
-        return tabList.get(index);
-    }
+
 
 }

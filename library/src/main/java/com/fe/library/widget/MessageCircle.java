@@ -1,4 +1,4 @@
-package com.fe.library;
+package com.fe.library.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.os.Build;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+
 import fe.library.R;
 
 /**

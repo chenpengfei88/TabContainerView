@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import com.fe.library.adapter.BaseAdapter;
 import com.fe.library.adapter.TabViewPagerAdapter;
 import com.fe.library.listener.OnTabSelectedListener;
-import com.fe.library.widget.Tab;
+import com.fe.library.widget.AbsTab;
 import com.fe.library.widget.TabHost;
 import fe.library.R;
 
@@ -22,22 +22,15 @@ import fe.library.R;
  */
 public class TabContainerView extends RelativeLayout {
 
-
     /**
      *  底部TabLayout
      */
     private TabHost tabHost;
+
     /**
      *  中间ViewPager
      */
     private ViewPager contentViewPager;
-
-    /**
-     *  文本属性
-     */
-    private int textSize;
-    private int textColor;
-    private int selectedTextColor;
 
     /**
      *  分割线
@@ -78,10 +71,6 @@ public class TabContainerView extends RelativeLayout {
 
     private void initStyle(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TabContainerViewStyle);
-        textColor = typedArray.getColor(R.styleable.TabContainerViewStyle_textColor, Color.BLACK);
-        selectedTextColor = typedArray.getColor(R.styleable.TabContainerViewStyle_selectedTextColor, Color.RED);
-        textSize = typedArray.getDimensionPixelSize(R.styleable.TabContainerViewStyle_textSize, 14);
-
         divideLineColor = typedArray.getColor(R.styleable.TabContainerViewStyle_divideLineColor, Color.BLACK);
         divideLineHeight = typedArray.getInt(R.styleable.TabContainerViewStyle_divideLineHeight, 2);
 
@@ -119,7 +108,7 @@ public class TabContainerView extends RelativeLayout {
             @Override
             public void onPageSelected(int position) {
                 tabHost.onChangeTabHostStatus(position);
-                Tab selectedTab = tabHost.getTabForIndex(position);
+                AbsTab selectedTab = tabHost.getTabForIndex(position);
                 if (onTabSelectedListener != null && selectedTab != null) onTabSelectedListener.onTabSelected(selectedTab);
             }
 
@@ -137,7 +126,8 @@ public class TabContainerView extends RelativeLayout {
 
     public void setAdapter(BaseAdapter baseAdapter, int index) {
         if (baseAdapter == null) return;
-        tabHost.addTabs(baseAdapter, textSize, textColor, selectedTextColor);
+
+        tabHost.addTabs(baseAdapter);
         contentViewPager.setAdapter(new TabViewPagerAdapter(baseAdapter.getFragmentManager(), baseAdapter.getFragmentArray()));
 
         setCurrentItem(index);
@@ -165,8 +155,8 @@ public class TabContainerView extends RelativeLayout {
      * @param index
      */
     public void setCurrentMessageItem(int index, int count) {
-        Tab tab = tabHost.getTabForIndex(index);
-        tab.showMessageCircle(true, count);
+        AbsTab tab = tabHost.getTabForIndex(index);
+        tab.showMessageTip(true, count);
     }
 
 
