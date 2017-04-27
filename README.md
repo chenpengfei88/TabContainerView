@@ -27,7 +27,9 @@
         <attr name="selectedTextColor" format="color" />
         <attr name="divideLineColor" format="color" />
         <attr name="divideLineHeight" format="integer" />
-    </declare-styleable>
+  </declare-styleable>
  ```
+#### 源码逻辑解析
+http://www.jianshu.com/p/7cccb5c054da
 
  
