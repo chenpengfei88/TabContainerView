@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         int[] iconImageArray = {R.drawable.icon_main, R.drawable.icon_work, R.drawable.icon_app, R.drawable.icon_mine};
         int[] selectedIconImageArray = {R.drawable.icon_main_selected, R.drawable.icon_work_selected, R.drawable.icon_app_selected, R.drawable.icon_mine_selected};
         Fragment[] fragments = new Fragment[] {new MainFragment(), new WorkFragment(), new AppFragment(), new MineFragment()};
+
         tabContainerView = (TabContainerView) findViewById(R.id.tab_containerview_main);
         tabContainerView.setAdapter(new DefaultAdapter(this, fragments, getSupportFragmentManager(), getResources().getStringArray(R.array.titleArray),
            getResources().getColor(R.color.colorPrimary), iconImageArray, selectedIconImageArray));

@@ -78,6 +78,7 @@ public class DefaultTab extends AbsTab {
     public void setIconImage(int iconImage, int selectedIconImage) {
         mSelectedIconImage = selectedIconImage;
         mIconImage = iconImage;
+
         mIvIcon.setImageResource(iconImage);
     }
 }
