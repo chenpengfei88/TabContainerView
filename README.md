@@ -18,5 +18,16 @@
    tabContainerView.setCurrentMessageItem(1);
        
    //设置当前有消息提示的item，提示小圆点，小圆点有消息数量
+ ```
+#### 资源属性
+ ```
+  <declare-styleable name="TabContainerViewStyle">
+        <attr name="textSize" format="dimension" />
+        <attr name="textColor" format="color" />
+        <attr name="selectedTextColor" format="color" />
+        <attr name="divideLineColor" format="color" />
+        <attr name="divideLineHeight" format="integer" />
+    </declare-styleable>
+ ```
 
-
+ 
