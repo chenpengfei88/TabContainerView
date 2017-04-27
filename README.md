@@ -1,5 +1,5 @@
 # TabContainerView （实现底部导航栏效果）
-#### 版本 V1.0
+### 版本 V1.0
 
  ![image](https://github.com/chenpengfei88/TabContainerView/blob/master/app/src/main/res/drawable/xiaoguo.gif)
  
@@ -18,9 +18,5 @@
    tabContainerView.setCurrentMessageItem(1);
        
    //设置当前有消息提示的item，提示小圆点，小圆点有消息数量
-   tabContainerView.setCurrentMessageItem(1, 3);
- ```  
-    }
-}
 
 
