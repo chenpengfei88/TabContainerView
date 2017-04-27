@@ -4,10 +4,11 @@
  ![image](https://github.com/chenpengfei88/TabContainerView/blob/master/app/src/main/res/drawable/xiaoguo.gif)
  
 #### 如何使用
- 
+ ```
   Fragment[] fragments = new Fragment[] {new MainFragment(), new WorkFragment(), new AppFragment(), new MineFragment()};
   tabContainerView = (TabContainerView) findViewById(R.id.tab_containerview_main);
   tabContainerView.setAdapter(new MainTabContainerAdapter(getSupportFragmentManager(), fragments));
+ ```
         
         //设置当前选中的item
         
