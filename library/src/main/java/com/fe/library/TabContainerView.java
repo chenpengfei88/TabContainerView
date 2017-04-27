@@ -143,10 +143,32 @@ public class TabContainerView extends RelativeLayout {
         setCurrentItem(index);
     }
 
+    /**
+     *  设置当前选中的tab
+     * @param index
+     */
     public void setCurrentItem(int index) {
         tabHost.onChangeTabHostStatus(index);
         contentViewPager.setCurrentItem(index);
     }
+
+    /**
+     *  显示消息提示
+     * @param index
+     */
+    public void setCurrentMessageItem(int index) {
+        setCurrentMessageItem(index, -1);
+    }
+
+    /**
+     *  设置消息提示数量
+     * @param index
+     */
+    public void setCurrentMessageItem(int index, int count) {
+        Tab tab = tabHost.getTabForIndex(index);
+        tab.showMessageCircle(true, count);
+    }
+
 
     public void setOffscreenPageLimit(int limit) {
         contentViewPager.setOffscreenPageLimit(limit);

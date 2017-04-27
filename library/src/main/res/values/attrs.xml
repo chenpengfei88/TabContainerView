@@ -9,4 +9,14 @@
         <attr name="divideLineHeight" format="integer" />
     </declare-styleable>
 
+    <!-- 小圆点样式 -->
+    <declare-styleable name="MessageCircleStyle">
+        <!-- 文本距离圆边的距离，没有文字的话可以通过它来控制圆的大小-->
+        <attr name="textSpacing" format="dimension" />
+        <attr name="cricleColor" format="color" />
+        <attr name="text" format="string" />
+        <attr name="messageTextSize" format="dimension" />
+        <attr name="messageTextColor" format="color" />
+    </declare-styleable>
+
 </resources>

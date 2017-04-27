@@ -1,13 +1,17 @@
 package com.fe.library.widget;
 
 import android.content.Context;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.fe.library.MessageCircle;
 import com.fe.library.listener.OnTabSelectedListener;
+import fe.library.R;
 
 /**
  * Created by chenpengfei on 2017/3/21.
@@ -39,6 +43,7 @@ public class Tab {
     private LinearLayout rootView;
     private ImageView iconImageView;
     private TextView textTextView;
+    private MessageCircle messageCircle;
 
     /**
      *  tab选中监听
@@ -71,39 +76,39 @@ public class Tab {
     }
 
     private void initView() {
-        rootView = new LinearLayout(context);
-        rootView.setOrientation(LinearLayout.VERTICAL);
-        rootView.setGravity(Gravity.CENTER_HORIZONTAL);
-        rootView.setPadding(0, 25, 0, 0);
+        rootView = (LinearLayout) LayoutInflater.from(context).inflate(R.layout.tab_item, null);
         LinearLayout.LayoutParams rootViewLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         rootViewLp.weight = 1;
-
         rootView.setLayoutParams(rootViewLp);
 
         /**
          *  icon view
          */
-        iconImageView = new ImageView(context);
+        iconImageView = (ImageView) rootView.findViewById(R.id.iv_icon);
         iconImageView.setImageResource(iconImage);
-        iconImageView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        rootView.addView(iconImageView);
 
         /**
          *  text view
          */
-        textTextView = new TextView(context);
+        textTextView = (TextView) rootView.findViewById(R.id.tv_title);
         textTextView.setText(text);
         textTextView.setTextColor(textColor);
         textTextView.setTextSize(textSize);
-        textTextView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        rootView.addView(textTextView);
+
+        /**
+         *  MessageCircle
+         */
+        messageCircle = (MessageCircle) rootView.findViewById(R.id.mc_circle);
     }
 
     /**
      * 选中Tab
      */
     private void tabSelected() {
-        if (onTabSelectedListener != null) onTabSelectedListener.onTabSelected(this);
+        if (onTabSelectedListener != null) {
+            onTabSelectedListener.onTabSelected(this);
+            showMessageCircle(false, -1);
+        }
     }
 
     /**
@@ -119,6 +124,19 @@ public class Tab {
 
     public String getText() {
         return text;
+    }
+
+    /**
+     * 显示消息提示
+     * @param show
+     */
+    public void showMessageCircle(boolean show, int count) {
+        messageCircle.setVisibility(show ? View.VISIBLE : View.GONE);
+        if (count == -1) {
+            messageCircle.setText("");
+        } else {
+            messageCircle.setText(count >= 1000 ? "999+" : count + "");
+        }
     }
 
     public void setTabIsSelected(boolean isSelected) {
