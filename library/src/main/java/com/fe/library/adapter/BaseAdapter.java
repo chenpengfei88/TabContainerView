@@ -1,5 +1,6 @@
 package com.fe.library.adapter;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
@@ -12,8 +13,10 @@ public abstract class BaseAdapter {
 
     private Fragment[] mFragmentArray;
     private FragmentManager mFragmentManager;
+    protected Context mContext;
 
-    public BaseAdapter(Fragment[] fragments, FragmentManager fragmentManager) {
+    public BaseAdapter(Context context, Fragment[] fragments, FragmentManager fragmentManager) {
+        mContext = context;
         mFragmentArray = fragments;
         mFragmentManager = fragmentManager;
     }

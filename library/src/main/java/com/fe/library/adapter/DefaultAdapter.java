@@ -12,18 +12,15 @@ import com.fe.library.widget.DefaultTab;
  */
 public class DefaultAdapter extends BaseAdapter {
 
-    private Context mContext;
     private String[] mTextArray;
     private int mTextColor = Color.BLACK, mSelectedTextColor;
-    private int mTextSize = 26;
     private int[] mIconImageArray;
     private int[] mSelectedIconImageArray;
 
     public DefaultAdapter(Context context, Fragment[] fragmentArray, FragmentManager fragmentManager, String[] textArray, int selectTextColor,
                           int[] iconImageArray, int[] selectedIconImageArray) {
-       super(fragmentArray, fragmentManager);
+       super(context, fragmentArray, fragmentManager);
 
-        mContext = context;
         mTextArray = textArray;
         mSelectedTextColor = selectTextColor;
         mIconImageArray = iconImageArray;

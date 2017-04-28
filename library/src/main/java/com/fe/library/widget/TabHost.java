@@ -56,8 +56,10 @@ public class TabHost {
 
     public void addTabs(BaseAdapter baseAdapter) {
         int count = baseAdapter.getCount();
-
         if (count == 0) return;
+
+        mTabList.clear();
+        mRootView.removeAllViews();
 
         for (int i = 0; i < count; i++) {
             addTab(baseAdapter.getTab(i));

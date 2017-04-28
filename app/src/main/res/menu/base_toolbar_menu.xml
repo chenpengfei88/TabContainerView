@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_contents"
+        android:title=""
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_default"
+        android:title="default"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_one"
+        android:title="example one"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_two"
+        android:title="example two"
+        app:showAsAction="ifRoom" />
+
+</menu>

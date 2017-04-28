@@ -2,9 +2,7 @@ package com.fe.library.widget;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import fe.library.R;
 
@@ -55,10 +53,6 @@ public class DefaultTab extends AbsTab {
 
     @Override
     protected void initView(View rootView) {
-        LinearLayout.LayoutParams rootViewLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        rootViewLp.weight = 1;
-        rootView.setLayoutParams(rootViewLp);
-
         mIvIcon = (ImageView) rootView.findViewById(R.id.iv_icon);
         mTvText = (TextView) rootView.findViewById(R.id.tv_title);
         mMessageCircleTip = (MessageCircle) rootView.findViewById(R.id.mc_circle);

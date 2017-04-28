@@ -4,6 +4,9 @@ import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
 import com.fe.library.listener.OnTabSelectedListener;
 
 /**
@@ -40,6 +43,10 @@ public abstract class AbsTab {
      */
     protected void inflaterView(final AbsTab tab, @LayoutRes int layoutResId) {
         mRootView = LayoutInflater.from(mContext).inflate(layoutResId, null);
+        LinearLayout.LayoutParams rootViewLp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rootViewLp.weight = 1;
+        mRootView.setLayoutParams(rootViewLp);
+
         initView(mRootView);
         mRootView.setOnClickListener(new View.OnClickListener() {
             @Override
