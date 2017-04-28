@@ -25,10 +25,6 @@ public class ExampleOneTab extends AbsTab {
         mTvTitle.setTextColor(isSelected ? mSelectedTextColor : mTextColor);
     }
 
-    @Override
-    public void showMessageTip(boolean show, int count) {
-
-    }
 
     @Override
     protected void initView(View rootView) {

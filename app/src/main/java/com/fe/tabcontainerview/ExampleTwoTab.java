@@ -24,10 +24,6 @@ public class ExampleTwoTab extends AbsTab {
         mIvIcon.setImageResource(isSelected ? mSelectedIcon : mIcon);
     }
 
-    @Override
-    public void showMessageTip(boolean show, int count) {
-
-    }
 
     @Override
     protected void initView(View rootView) {

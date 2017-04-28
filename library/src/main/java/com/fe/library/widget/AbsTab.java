@@ -85,17 +85,19 @@ public abstract class AbsTab {
     }
 
     /**
+     *  显示消息提示
+     * @param show 是否显示
+     * @param count 显示数量
+     */
+    public void showMessageTip(boolean show, int count) {};
+
+    /**
      * 是否选中tab
      * @param isSelected
      */
     protected abstract void tabSelected(boolean isSelected);
 
-    /**
-     *  显示消息提示
-     * @param show 是否显示
-     * @param count 显示数量
-     */
-    public abstract void showMessageTip(boolean show, int count);
+
 
     protected abstract void initView(View rootView);
 
