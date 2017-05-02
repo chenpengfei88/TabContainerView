@@ -3,6 +3,18 @@
 
  ![image](https://github.com/chenpengfei88/TabContainerView/blob/master/app/src/main/res/drawable/xiaoguo.gif)
  
+#### 如何引用
+ ```
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+ 
+ compile 'com.github.chenpengfei88:TabContainerView:v1.0'
+ ```
+ 
 #### 如何使用
  ```
   Fragment[] fragments = new Fragment[] {new MainFragment(), new WorkFragment(), new AppFragment(), new MineFragment()};
