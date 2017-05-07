@@ -75,5 +75,32 @@ allprojects {
   tabContainerView.setAdapter(new DefaultAdapter(this, fragments, getSupportFragmentManager(),           getResources().getStringArray(R.array.titleArray),
  getResources().getColor(R.color.colorPrimary), iconImageArray, selectedIconImageArray));
  ```
+ #### 常用方法
+ ```
+   //设置当前选中的item
+   tabContainerView.setCurrentItem(1);
+   
+   //设置当前有消息提示的item，提示小圆点
+   tabContainerView.setCurrentMessageItem(1);
+       
+   //设置当前有消息提示的item，提示小圆点，小圆点有消息数量
+   tabContainerView.setCurrentMessageItem(1, 3);
+   
+   //tab切换监听
+   tabContainerView.setOnTabSelectedListener(new OnTabSelectedListener() {
+        @Override
+        public void onTabSelected(Tab tab) {
+        }
+   });
+ ```
+#### 资源属性
+ ```
+    <declare-styleable name="TabContainerViewStyle">
+        <attr name="divideLineColor" format="color" />
+        <attr name="divideLineHeight" format="integer" />
+    </declare-styleable>
+ ```
+#### 源码逻辑解析
+http://www.jianshu.com/p/9aaff43bbf9f
 
  
