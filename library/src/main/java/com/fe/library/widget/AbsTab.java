@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
 import com.fe.library.listener.OnTabSelectedListener;
 
 /**
@@ -16,17 +15,22 @@ public abstract class AbsTab {
 
     protected Context mContext;
     /**
-     *  tab index 位置
+     *  Tab在TabHost中的位置，属于第mIndex个
      */
     private int mIndex;
-    private View mRootView;
+
     /**
-     *  table 当前是否选中
+     *  Tab类的资源View布局
+     */
+    private View mRootView;
+
+    /**
+     *  当前Tab是否选中
      */
     protected boolean mIsSelected;
 
     /**
-     *  tab选中监听
+     *  Tab选中监听
      */
     private OnTabSelectedListener onTabSelectedListener;
 
@@ -36,7 +40,7 @@ public abstract class AbsTab {
     }
 
     /**
-     *  初始化view
+     *  初始化View资源，得到RootView，并添加响应事件
      * @param tab
      * @param layoutResId
      * @return
@@ -69,7 +73,7 @@ public abstract class AbsTab {
 
 
     /**
-     *  得到Tab 的rootView
+     *  得到Tab 的RootView
      * @return  View
      */
     public View getTabRootView() {
@@ -77,7 +81,7 @@ public abstract class AbsTab {
     }
 
     /**
-     *  得到tab index
+     *  得到Tab Index
      * @return int
      */
     public int getTabIndex() {
@@ -92,14 +96,14 @@ public abstract class AbsTab {
     public void showMessageTip(boolean show, int count) {};
 
     /**
-     * 是否选中tab
+     * 是否选中该Tab
      * @param isSelected
      */
     protected abstract void tabSelected(boolean isSelected);
 
-
-
+    /**
+     *  初始化RootView里的布局
+     * @param rootView
+     */
     protected abstract void initView(View rootView);
-
-
 }
