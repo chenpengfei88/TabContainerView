@@ -57,7 +57,12 @@ http://www.jianshu.com/p/7cccb5c054da
 ### 版本 V2.0
 
   ![image](https://github.com/chenpengfei88/TabContainerView/blob/master/app/src/main/res/drawable/xiaoguo2.0.gif)
-  #### 如何引用
+  
+  从效果图中可以看出V2.0和V1.0的区别
+  V2.0的Tab UI是可以实现高度定制的，上面的效果图中Tab UI共有三种样式。
+  V1.0的Tab UI是定死的
+  
+#### 如何引用
  ```
 allprojects {
 		repositories {
@@ -69,6 +74,10 @@ allprojects {
  compile 'com.github.chenpengfei88:TabContainerView:v2.0'
  ```
  #### 如何使用
+ 
+ 首先创建一个继承自AbsTab类的Tab类（项目中我默认实现了一个DefaultTab），
+ 然后创建一个继承自BaseAdapter类的适配器类（项目中我默认实现了一个DefaultAdapter）
+ 
  ```
   Fragment[] fragments = new Fragment[] {new MainFragment(), new WorkFragment(), new AppFragment(), new MineFragment()};
   TabContainerView tabContainerView = (TabContainerView) findViewById(R.id.tab_containerview_main);
