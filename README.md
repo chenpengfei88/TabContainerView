@@ -56,6 +56,24 @@ http://www.jianshu.com/p/7cccb5c054da
 
 ### 版本 V2.0
 
- 开发当中......
+  ![image](https://github.com/chenpengfei88/TabContainerView/blob/master/app/src/main/res/drawable/xiaoguo2.0.gif)
+  #### 如何引用
+ ```
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+ 
+ compile 'com.github.chenpengfei88:TabContainerView:v2.0'
+ ```
+ #### 如何使用
+ ```
+  Fragment[] fragments = new Fragment[] {new MainFragment(), new WorkFragment(), new AppFragment(), new MineFragment()};
+  TabContainerView tabContainerView = (TabContainerView) findViewById(R.id.tab_containerview_main);
+  tabContainerView.setAdapter(new DefaultAdapter(this, fragments, getSupportFragmentManager(),        getResources().getStringArray(R.array.titleArray),
+ getResources().getColor(R.color.colorPrimary), iconImageArray, selectedIconImageArray));
+ ```
 
  
