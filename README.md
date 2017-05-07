@@ -72,7 +72,7 @@ allprojects {
  ```
   Fragment[] fragments = new Fragment[] {new MainFragment(), new WorkFragment(), new AppFragment(), new MineFragment()};
   TabContainerView tabContainerView = (TabContainerView) findViewById(R.id.tab_containerview_main);
-  tabContainerView.setAdapter(new DefaultAdapter(this, fragments, getSupportFragmentManager(),         getResources().getStringArray(R.array.titleArray),
+  tabContainerView.setAdapter(new DefaultAdapter(this, fragments, getSupportFragmentManager(),           getResources().getStringArray(R.array.titleArray),
  getResources().getColor(R.color.colorPrimary), iconImageArray, selectedIconImageArray));
  ```
 
