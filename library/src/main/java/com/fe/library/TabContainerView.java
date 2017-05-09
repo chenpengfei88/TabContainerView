@@ -175,6 +175,13 @@ public class TabContainerView extends RelativeLayout {
         tab.showMessageTip(true, count);
     }
 
+    /**
+     *  设置TabHost背景颜色
+     */
+    public void setTabHostBgColor(int bgColor) {
+        mTabHost.setTabBgColor(bgColor);
+    }
+
     public void setOffscreenPageLimit(int limit) {
         mContentViewPager.setOffscreenPageLimit(limit);
     }

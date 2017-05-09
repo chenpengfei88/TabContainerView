@@ -109,4 +109,15 @@ public class TabHost {
         }
     }
 
+    /**
+     *  Tab 设置背景颜色
+     * @param bgColor
+     */
+    public void setTabBgColor(int bgColor) {
+        for (int i = 0, size = mTabList.size(); i < size; i++) {
+            AbsTab tab = mTabList.get(i);
+            tab.getTabRootView().setBackgroundColor(bgColor);
+        }
+    }
+
 }
