@@ -56,7 +56,7 @@ http://www.jianshu.com/p/7cccb5c054da
 
 ### 版本 V2.0
 
-  ![image](https://github.com/chenpengfei88/TabContainerView/blob/master/app/src/main/res/drawable/xiaoguo2.0.gif)
+  ![image](https://github.com/chenpengfei88/TabContainerView/blob/master/app/src/main/res/drawable/xiaoguo2.gif)
   
   从效果图中可以看出V2.0和V1.0的区别
   
@@ -114,5 +114,23 @@ allprojects {
  ```
 #### 源码逻辑解析
 http://www.jianshu.com/p/9aaff43bbf9f
+
+### 版本 V2.1
+
+#### 如何引用
+ ```
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+ 
+ compile 'com.github.chenpengfei88:TabContainerView:v2.1'
+ ```
+ #### 常用方法
+ 
+新增 设置tabHost背景颜色
+setTabHostBgColor(int bgColor) 方法
 
  
