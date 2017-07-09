@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import com.fe.library.TabContainerView;
 import com.fe.library.adapter.DefaultAdapter;
+import com.fe.library.widget.NormalSuspension;
 import com.fe.tabcontainerview.adapter.ExampleOneAdapter;
 import com.fe.tabcontainerview.adapter.ExampleTwoAdapter;
 import com.fe.tabcontainerview.fragment.AppFragment;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
         tabContainerView = (TabContainerView) findViewById(R.id.tab_containerview_main);
         tabContainerView.setAdapter(new DefaultAdapter(this, fragments, getSupportFragmentManager(), getResources().getStringArray(R.array.titleArray),
            getResources().getColor(R.color.colorPrimary), iconImageArray, selectedIconImageArray));
+
+        tabContainerView.setSuspension(new NormalSuspension());
     }
 
     private void initToolBar() {

@@ -2,9 +2,12 @@ package com.fe.library.widget;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import com.fe.library.TabContainerView;
 import com.fe.library.adapter.BaseAdapter;
 import com.fe.library.listener.OnTabSelectedListener;
 import java.util.ArrayList;
@@ -17,41 +20,82 @@ import fe.library.R;
 public class TabHost {
 
     private Context mContext;
-    private LinearLayout mRootView;
+
+    /**
+     *  Host是否在顶部
+     */
+    private boolean mHostTop;
+
+    /**
+     *  Host Layout
+     */
+    private LinearLayout mHostView;
 
     /**
      * tab集合
      */
     private List<AbsTab> mTabList = new ArrayList<>();
 
+    /**
+     *  content viewPager
+     */
     private ViewPager mContentViewPager;
 
+    /**
+     *  Top Host 布局类
+     */
+    private TabHostTopLayout mTopHostLayout;
 
-    public TabHost(Context context) {
+
+    public TabHost(Context context, boolean hostTop) {
         this.mContext = context;
+        this.mHostTop = hostTop;
 
-        initView();
+        //Tab在顶部
+        if (mHostTop) {
+            initTopView();
+        } else {
+            initBottomView();
+        }
     }
 
     /**
-     *  初始化View
+     *  初始化底部View
      */
-    private void initView() {
-        mRootView = new LinearLayout(mContext);
-        mRootView.setOrientation(LinearLayout.HORIZONTAL);
-        mRootView.setId(R.id.linearlayout_tab);
+    private void initBottomView() {
+        mHostView = new LinearLayout(mContext);
+        mHostView.setOrientation(LinearLayout.HORIZONTAL);
+        mHostView.setId(R.id.linearlayout_tab);
 
         RelativeLayout.LayoutParams rootViewLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         rootViewLp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        mRootView.setLayoutParams(rootViewLp);
+        mHostView.setLayoutParams(rootViewLp);
+    }
+
+    /**
+     *  初始化顶部View
+     */
+    private void initTopView() {
+        mTopHostLayout = new TabHostTopLayout(mContext);
+        mTopHostLayout.setHorizontalScrollBarEnabled(false);
+        mTopHostLayout.setFillViewport(true);
+        mTopHostLayout.setId(R.id.linearlayout_tab);
+
+        RelativeLayout.LayoutParams rootViewLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mTopHostLayout.setLayoutParams(rootViewLp);
+
+        mHostView = mTopHostLayout.getHostView();
     }
 
     public void setContentViewPager(ViewPager contentViewPager) {
         this.mContentViewPager = contentViewPager;
     }
 
-    public LinearLayout getRootView() {
-        return mRootView;
+    public View getRootLayout() {
+        if (mHostTop) {
+            return mTopHostLayout;
+        }
+        return mHostView;
     }
 
     public void addTabs(BaseAdapter baseAdapter) {
@@ -59,7 +103,7 @@ public class TabHost {
         if (count == 0) return;
 
         mTabList.clear();
-        mRootView.removeAllViews();
+        mHostView.removeAllViews();
 
         for (int i = 0; i < count; i++) {
             addTab(baseAdapter.getTab(i));
@@ -74,7 +118,7 @@ public class TabHost {
         if (tab == null) return;
 
         mTabList.add(tab);
-        mRootView.addView(tab.getTabRootView());
+        mHostView.addView(tab.getTabRootView());
         tabAddSelectedListener(tab);
     }
 
@@ -118,6 +162,17 @@ public class TabHost {
             AbsTab tab = mTabList.get(i);
             tab.getTabRootView().setBackgroundColor(bgColor);
         }
+    }
+
+
+    public boolean isTop() {
+        return mHostTop;
+    }
+
+    public int getTabWidth() {
+        if (mHostView == null) return 0;
+
+        return mHostView.getChildAt(0).getMeasuredWidth();
     }
 
 }

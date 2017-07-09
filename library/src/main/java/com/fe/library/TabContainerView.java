@@ -6,21 +6,37 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import com.fe.library.adapter.BaseAdapter;
 import com.fe.library.adapter.TabViewPagerAdapter;
 import com.fe.library.listener.OnTabSelectedListener;
 import com.fe.library.widget.AbsTab;
+import com.fe.library.widget.CenterSuspensionLayout;
+import com.fe.library.widget.Suspension;
 import com.fe.library.widget.TabHost;
+import com.fe.library.widget.TabHostTopLayout;
+
 import fe.library.R;
 
 /**
  * Created by chenpengfei on 2017/3/21.
  */
 public class TabContainerView extends RelativeLayout {
+
+    /**
+     *  tabHost在顶部
+     */
+    public static final String TAB_STYLE_TOP = "top";
+
+    /**
+     * tabHost在底部
+     */
+    public static final String TAB_STYLE_BOTTOM = "bottom";
 
     /**
      *  中间ViewPager
@@ -37,6 +53,26 @@ public class TabContainerView extends RelativeLayout {
      *  底部TabLayout
      */
     private TabHost mTabHost;
+
+    /**
+     *  悬浮布局
+     */
+    private CenterSuspensionLayout mSuspensionLayout;
+
+    /**
+     *  tab 样式
+     */
+    private String mTabStyle;
+
+    /**
+     *  Tab宽度
+     */
+    private int mTabWidth;
+
+    /**
+     *  悬浮操作接口
+     */
+    private Suspension mSuspension;
 
     /**
      *  选中监听
@@ -75,7 +111,11 @@ public class TabContainerView extends RelativeLayout {
     private void init(Context context, AttributeSet attrs) {
         initStyle(context, attrs);
         initTabHost(context);
-        initDivideLine(context);
+        if (tabHostTop()) {
+            initCenterSuspensionLayout(context);
+        } else {
+            initDivideLine(context);
+        }
         initViewPager(context);
 
         mTabHost.setContentViewPager(mContentViewPager);
@@ -85,14 +125,16 @@ public class TabContainerView extends RelativeLayout {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.TabContainerViewStyle);
         mDivideLineColor = typedArray.getColor(R.styleable.TabContainerViewStyle_divideLineColor, Color.BLACK);
         mDivideLineHeight = typedArray.getInt(R.styleable.TabContainerViewStyle_divideLineHeight, 2);
+        mTabStyle = typedArray.getString(R.styleable.TabContainerViewStyle_tabStyle);
+        if (TextUtils.isEmpty(mTabStyle)) mTabStyle = TAB_STYLE_TOP;
 
         typedArray.recycle();
     }
 
 
     private void initTabHost(Context context) {
-        mTabHost = new TabHost(context);
-        addView(mTabHost.getRootView());
+        mTabHost = new TabHost(context, tabHostTop());
+        addView(mTabHost.getRootLayout());
     }
 
     private void initDivideLine(Context context) {
@@ -107,17 +149,37 @@ public class TabContainerView extends RelativeLayout {
         addView(divideLine);
     }
 
+    private void initCenterSuspensionLayout(Context context) {
+        mSuspensionLayout = new CenterSuspensionLayout(context);
+        mSuspensionLayout.setOrientation(LinearLayout.HORIZONTAL);
+        mSuspensionLayout.setId(R.id.center_line_layout);
+        mSuspensionLayout.setBackgroundColor(Color.BLACK);
+
+        LayoutParams suspensionLayoutLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 30);
+        suspensionLayoutLp.addRule(RelativeLayout.BELOW, R.id.linearlayout_tab);
+        mSuspensionLayout.setLayoutParams(suspensionLayoutLp);
+
+        addView(mSuspensionLayout);
+    }
+
     private void initViewPager(Context context) {
         mContentViewPager = new ViewPager(context);
 
         LayoutParams contentVpLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        contentVpLp.addRule(RelativeLayout.ABOVE, R.id.divide_tab);
+        if (tabHostTop()) {
+            contentVpLp.addRule(RelativeLayout.BELOW, R.id.center_line_layout);
+        } else {
+            contentVpLp.addRule(RelativeLayout.ABOVE, R.id.divide_tab);
+        }
         mContentViewPager.setLayoutParams(contentVpLp);
         mContentViewPager.setId(R.id.viewpager_tab);
 
         mContentViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                if (mSuspensionLayout == null) return;
+
+                mSuspensionLayout.moveOffset(position, positionOffset, positionOffsetPixels);
             }
 
             @Override
@@ -136,6 +198,20 @@ public class TabContainerView extends RelativeLayout {
         addView(mContentViewPager);
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        if (mTabHost == null || !mTabHost.isTop()) return;
+
+        mTabWidth = mTabHost.getTabWidth();
+        mSuspensionLayout.setSuspension(mSuspension, mTabWidth);
+    }
+
+    private boolean tabHostTop() {
+        return mTabStyle.equals(TAB_STYLE_TOP);
+    }
+
     public void setAdapter(BaseAdapter baseAdapter) {
         setAdapter(baseAdapter, 0);
     }
@@ -147,6 +223,16 @@ public class TabContainerView extends RelativeLayout {
         mContentViewPager.setAdapter(new TabViewPagerAdapter(baseAdapter.getFragmentManager(), baseAdapter.getFragmentArray()));
 
         setCurrentItem(index);
+    }
+
+    /**
+     *  设置悬浮效果
+     */
+    public void setSuspension(Suspension suspension) {
+        if (mSuspensionLayout == null) return;
+
+        this.mSuspension = suspension;
+        requestLayout();
     }
 
     /**

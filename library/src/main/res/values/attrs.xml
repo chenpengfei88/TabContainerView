@@ -4,6 +4,7 @@
     <declare-styleable name="TabContainerViewStyle">
         <attr name="divideLineColor" format="color" />
         <attr name="divideLineHeight" format="integer" />
+        <attr name="tabStyle" format="string" />
     </declare-styleable>
 
     <!-- 小圆点样式 -->
